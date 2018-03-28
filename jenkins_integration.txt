@@ -1,0 +1,2 @@
+Hello Sumit,
+this is the file used for automation in jenkins with git.
