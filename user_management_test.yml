@@ -1,0 +1,50 @@
+---
+- name: Creating user on remote hosts
+  hosts: "{{ remote_host }}" 
+  gather_facts: no
+  become: yes
+  become_user: root  
+  tasks:
+#This task is to create user on remote host and storing the password in password.txt in control system.
+    - name: Create users with password
+      user:
+        name: "{{ item }}"
+#        password: "{{ lookup('password', 'password.txt') | password_hash('sha512') }}"
+        state: "{{ user_state }}" 
+      with_items: "{{ user_to_add }}" 
+      tags: adding users
+      
+#This task is to enable the user
+    # - name: enable the user
+      # user:
+        # name: "{{ item }}"
+        # state: present
+      # with_items: "{{ user_to_enable }}"
+      # tags: enable user
+      
+#This task is to disbale user
+    # - name: disbale the user
+      # user:
+        # name: "{{ item }}"
+        # state: absent
+        # remove: yes
+      # with_items: "{{ user_to_disable }}"
+      # tags: disable user
+      
+#This task is to create group
+    # - name: creating group
+      # group:
+        # name: "{{ item }}"
+        # state: present
+      # with_items: "{{ add_group }}"
+      # tags: creating group
+      
+#This task is to disable group
+    # - name: disable group
+      # group:
+        # name: "{{ item }}"
+        # state: absent
+      # with_items: "{{ remove_group }}"
+      # tags: remove group
+      
+... 
